@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const { Pool } = require("pg");
+const pool = require("./db");
 const employeeRoutes = require("./routes/employees");
 
 const app = express();
@@ -14,11 +14,6 @@ app.get("/", (req, res) => {
 });
 
 app.use("/employees", employeeRoutes);
-
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false }
-});
 
 (async () => {
   try {
