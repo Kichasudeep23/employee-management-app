@@ -30,7 +30,7 @@ const pool = new Pool({
         salary NUMERIC
       );
     `);
-    console.log("Table ready ✅");
+    console.log("Table ready");
   } catch (err) {
     console.error("Table creation error:", err);
   }
