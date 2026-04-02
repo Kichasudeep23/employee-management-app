@@ -1,7 +1,19 @@
-app.use("/employees", employeeRoutes);
-
-// 👇 ADD HERE
+const express = require("express");
+const cors = require("cors");
 const { Pool } = require("pg");
+const employeeRoutes = require("./routes/employees");
+
+const app = express();
+const PORT = process.env.PORT || 5000;
+
+app.use(cors());
+app.use(express.json());
+
+app.get("/", (req, res) => {
+  res.send("Backend is running successfully");
+});
+
+app.use("/employees", employeeRoutes);
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -20,11 +32,10 @@ const pool = new Pool({
     `);
     console.log("Table ready ✅");
   } catch (err) {
-    console.error(err);
+    console.error("Table creation error:", err);
   }
 })();
 
-// 👇 already existing
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
